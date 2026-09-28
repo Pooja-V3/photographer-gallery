@@ -49,6 +49,20 @@ pipeline {
             }
         }
     }
+        stage('Deploy Application') {
+            steps {
+                sh '''
+                    docker pull pooja315/photographer-gallery:jenkins-${BUILD_NUMBER}
+
+                    docker rm -f photographer-gallery-deploy || true
+
+                    docker run -d \
+                        --name photographer-gallery-deploy \
+                        -p 8086:80 \
+                        pooja315/photographer-gallery:jenkins-${BUILD_NUMBER}
+                '''
+            }
+        }
 
     post {
         success {
