@@ -48,7 +48,7 @@ pipeline {
                 }
             }
         }
-    }
+
         stage('Deploy Application') {
             steps {
                 sh '''
@@ -63,6 +63,7 @@ pipeline {
                 '''
             }
         }
+    }
 
     post {
         success {
