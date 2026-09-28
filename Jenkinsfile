@@ -26,6 +26,13 @@ pipeline {
                 echo 'Dockerfile validation completed!'
             }
         }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t photographer-gallery:jenkins-${BUILD_NUMBER} .'
+                echo 'Docker image built successfully!'
+            }
+        }
     }
 
     post {
