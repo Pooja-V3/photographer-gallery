@@ -4,214 +4,113 @@
 
 \## Project Overview
 
+# Photographer Gallery App — DevOps Project
 
+## 1. Project Overview
 
-Photographer Gallery is a static website built using HTML, CSS, and JavaScript. Users can explore photographs and view selected images in a lightbox.
+Photographer Gallery is a static photography portfolio website built using HTML, CSS, and JavaScript. It allows users to explore photographs and view selected images in a lightbox.
 
+This project demonstrates DevOps practices by using containerization, CI/CD automation, infrastructure as code, configuration automation, and container orchestration.
 
+## 2. Technologies Used
 
-This project demonstrates DevOps tools and practices, including version control, containerization, image publishing, and CI/CD automation.
+* HTML, CSS, JavaScript
+* Git and GitHub
+* Docker and Docker Hub
+* Jenkins
+* Kubernetes
+* Terraform
+* Ansible
+* GitHub Actions
 
+## 3. Project Architecture
 
+1. Source code is maintained in GitHub.
+2. Docker packages the website into a container image.
+3. Jenkins automates source checkout, build, image publishing, and local deployment.
+4. Kubernetes manages the application using a Deployment with three replicas and a NodePort Service.
+5. Terraform manages a local Docker image and container.
+6. Ansible runs a playbook to verify Docker availability and list containers.
 
-\## Technologies Used
+## 4. Docker
 
+Docker is used to build and run the Photographer Gallery website in a container.
 
+Docker Hub image:
 
-\* HTML
+`pooja315/photographer-gallery:latest`
 
-\* CSS
+## 5. Jenkins CI/CD
 
-\* JavaScript
+The Jenkins pipeline automates the application workflow, including:
 
-\* Git and GitHub
+* Checking out source code from GitHub
+* Validating and building the Docker image
+* Publishing the image to Docker Hub
+* Deploying the application locally
 
-\* Docker
+## 6. Kubernetes Deployment
 
-\* Docker Hub
+The Kubernetes Deployment is configured with three replicas to maintain multiple running application pods.
 
-\* GitHub Actions
+* Deployment: `photographer-gallery`
+* Replicas: 3
+* Service type: NodePort
+* NodePort: 30215
 
-\* Jenkins (planned)
-
-\* Kubernetes (planned)
-
-\* Terraform (planned)
-
-\* Ansible (planned)
-
-
-
-\## Application Features
-
-
-
-\* Photograph gallery
-
-\* Image lightbox
-
-\* Previous and next image navigation
-
-\* Responsive web layout
-
-
-
-\## Docker
-
-
-
-The application is packaged using Docker and served through Nginx.
-
-
-
-Build the image locally:
-
-
+Check the deployment:
 
 ```bash
-
-docker build -t photographer-gallery:1.0 .
-
+kubectl get deployments,pods,services
 ```
 
-
-
-Run the container:
-
-
+To access the website through port forwarding:
 
 ```bash
-
-docker run -d --name photographer-gallery -p 8081:80 photographer-gallery:1.0
-
+kubectl port-forward service/photographer-gallery 8088:80
 ```
 
+Open `http://localhost:8088` in your browser while port forwarding is running.
 
+## 7. Terraform
 
-Open http://localhost:8081 in a browser.
+Terraform is used to manage a local Docker image and container.
 
+* Image: `pooja315/photographer-gallery:latest`
+* Container: `photographer-gallery-terraform`
+* Local port: `8089`
 
-
-\## Docker Hub
-
-
-
-Published image:
-
-
-
-`pooja315/photographer-gallery:1.0`
-
-
-
-Version 1.1 is also published to Docker Hub.
-
-
-
-Pull the image:
-
-
+Terraform commands:
 
 ```bash
-
-docker pull pooja315/photographer-gallery:1.0
-
+terraform -chdir=terraform init
+terraform -chdir=terraform plan
+terraform -chdir=terraform apply
 ```
 
+## 8. Ansible
 
+Ansible is used to automate basic Docker verification through a YAML playbook.
 
-Run it with a different container name and port:
+The current playbook checks the Docker version and lists running containers.
 
-
+Run the playbook from the `ansible` directory:
 
 ```bash
-
-docker run -d --name gallery-demo -p 8084:80 pooja315/photographer-gallery:1.0
-
+ansible-playbook site.yml --syntax-check
+ansible-playbook site.yml
 ```
 
+Note: The current Ansible playbook verifies Docker; it does not yet automate the full application deployment.
 
+## 9. Project Outcome
 
-\## CI/CD Pipeline
+This project demonstrates practical experience with containerization, CI/CD, Kubernetes orchestration, infrastructure as code, and basic configuration automation.
 
+## 10. Author
 
-
-GitHub Actions automatically runs when changes are pushed to the `main` branch.
-
-
-
-Pipeline steps:
-
-
-
-1\. Check out the repository.
-
-2\. Set up Docker Buildx.
-
-3\. Log in to Docker Hub using GitHub repository secrets.
-
-4\. Build the Docker image.
-
-5\. Push the image to Docker Hub with the `1.0` tag.
-
-
-
-Required GitHub repository secrets:
-
-
-
-\* `DOCKERHUB\_USERNAME`
-
-\* `DOCKERHUB\_TOKEN`
-
-
-
-Never commit Docker Hub access tokens or other credentials to the repository.
-
-
-
-\## Project Repository
-
-
-
-GitHub: https://github.com/Pooja-V3/photographer-gallery
-
-
-
-Docker Hub: https://hub.docker.com/r/pooja315/photographer-gallery
-
-
-
-\## Future Enhancements
-
-
-
-\* Jenkins pipeline integration
-
-\* Kubernetes deployment
-
-\* Terraform infrastructure provisioning
-
-\* Ansible configuration automation
-
-\* Automated application tests and monitoring
-
-
-
-\## Learning Outcomes
-
-
-
-\* Version control with Git and GitHub
-
-\* Docker image creation and container management
-
-\* Publishing container images to Docker Hub
-
-\* Automating image builds and publishing with GitHub Actions
-
-\* Understanding CI/CD and infrastructure automation
-
+**Pooja V**
+BE Computer Science and Engineering# Photographer Gallery App — DevOps Project
 
 
 
