@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: photographer-gallery
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: photographer-gallery
+  template:
+    metadata:
+      labels:
+        app: photographer-gallery
+    spec:
+      containers:
+        - name: photographer-gallery
+          image: pooja315/photographer-gallery:latest
+          ports:
+            - containerPort: 80
